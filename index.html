@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Velvet Spoon – Artisan Desserts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF6F0; --warm: #F5EBD8; --cocoa: #3D2314; --caramel: #C8832A;
+      --blush: #E8BDAB; --dark: #1A0F08; --gold: #D4A843; --text: #2C1810; --muted: #7A5C4A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250,246,240,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,131,42,0.15);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: var(--cocoa); letter-spacing: 0.04em; text-decoration: none; }
+    .nav-logo span { color: var(--caramel); font-style: italic; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--caramel); }
+    .nav-cta { background: var(--caramel); color: #fff; padding: 0.6rem 1.6rem; border-radius: 2rem; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: background 0.25s; display: inline-block; }
+    .nav-cta:hover { background: var(--cocoa); }
+
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(200,131,42,0.08) 0%, transparent 60%); pointer-events: none; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 6rem; position: relative; z-index: 2; }
+    .hero-tag { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--caramel); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.7rem; }
+    .hero-tag::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--caramel); }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem,5.5vw,5.5rem); font-weight: 300; line-height: 1.05; color: var(--cocoa); margin-bottom: 1.8rem; }
+    .hero-title em { font-style: italic; color: var(--caramel); }
+    .hero-desc { font-size: 1rem; line-height: 1.75; color: var(--muted); max-width: 38ch; margin-bottom: 3rem; font-weight: 300; }
+    .hero-actions { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--cocoa); color: var(--cream); padding: 1rem 2.4rem; border-radius: 0.25rem; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: background 0.25s; display: inline-block; }
+    .btn-primary:hover { background: var(--caramel); }
+    .btn-ghost { color: var(--cocoa); font-size: 0.85rem; letter-spacing: 0.1em; text-decoration: none; font-weight: 500; text-transform: uppercase; border-bottom: 1px solid var(--caramel); padding-bottom: 2px; }
+    .btn-ghost:hover { color: var(--caramel); }
+    .hero-right { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .hero-img-wrap { width: 85%; height: 80%; border-radius: 1rem 0 1rem 0; overflow: hidden; position: relative; box-shadow: -20px 20px 60px rgba(61,35,20,0.18); }
+    .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 12s infinite alternate ease-in-out; }
+    @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+    .hero-badge { position: absolute; bottom: 3rem; left: -1.5rem; background: var(--caramel); color: #fff; width: 7rem; height: 7rem; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(200,131,42,0.4); animation: float 4s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .hero-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; line-height: 1; }
+    .hero-badge-text { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .marquee-wrap { background: var(--cocoa); color: var(--cream); padding: 1rem 0; overflow: hidden; }
+    .marquee-inner { display: flex; gap: 3rem; width: max-content; animation: marquee 28s linear infinite; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-item { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; white-space: nowrap; display: flex; align-items: center; gap: 2rem; }
+    .marquee-dot { color: var(--caramel); font-size: 1.4rem; }
+
+    .features { padding: 7rem 6rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; }
+    .feature-card { padding: 2.5rem; border: 1px solid rgba(200,131,42,0.2); border-radius: 0.5rem; transition: border-color 0.3s, transform 0.3s; background: rgba(255,255,255,0.4); }
+    .feature-card:hover { border-color: var(--caramel); transform: translateY(-4px); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    .feature-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--cocoa); margin-bottom: 0.8rem; }
+    .feature-desc { font-size: 0.9rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+    .sec-head { text-align: center; margin-bottom: 4rem; }
+    .sec-tag { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--caramel); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem; }
+    .sec-tag::before, .sec-tag::after { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--caramel); }
+    .sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,4vw,3.5rem); font-weight: 300; color: var(--cocoa); line-height: 1.15; }
+    .sec-title em { font-style: italic; color: var(--caramel); }
+
+    .menu-section { padding: 5rem 6rem; background: var(--warm); }
+    .menu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .menu-card { border-radius: 0.75rem; overflow: hidden; background: var(--cream); box-shadow: 0 4px 20px rgba(61,35,20,0.08); transition: transform 0.3s, box-shadow 0.3s; }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(61,35,20,0.14); }
+    .menu-card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+    .menu-card-body { padding: 1.5rem; }
+    .menu-card-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--caramel); font-weight: 500; margin-bottom: 0.5rem; }
+    .menu-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--cocoa); margin-bottom: 0.5rem; }
+    .menu-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; font-weight: 300; }
+    .menu-card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .menu-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--cocoa); }
+    .menu-order-btn { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--caramel); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--caramel); padding-bottom: 1px; }
+    .menu-order-btn:hover { color: var(--cocoa); border-color: var(--cocoa); }
+
+    .quote-sec { padding: 7rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .quote-img-wrap { border-radius: 0 2rem 0 2rem; overflow: hidden; box-shadow: 20px 20px 60px rgba(61,35,20,0.12); }
+    .quote-img-wrap img { width: 100%; height: 450px; object-fit: cover; display: block; }
+    .big-quote { font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: var(--caramel); line-height: 0.5; margin-bottom: 1rem; font-style: italic; }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-style: italic; font-weight: 300; color: var(--cocoa); line-height: 1.5; margin-bottom: 2rem; }
+    .quote-author { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+    .stats-bar { background: var(--cocoa); color: var(--cream); padding: 4rem 6rem; display: grid; grid-template-columns: repeat(4,1fr); text-align: center; gap: 2rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--caramel); line-height: 1; }
+    .stat-label { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250,246,240,0.6); margin-top: 0.4rem; }
+
+    .testimonials { padding: 7rem 6rem; background: var(--warm); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .testi-card { background: var(--cream); padding: 2.5rem; border-radius: 0.5rem; border-left: 3px solid var(--caramel); }
+    .testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
+    .testi-text { font-size: 0.92rem; line-height: 1.75; color: var(--muted); font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+    .testi-author { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--cocoa); }
+
+    .cta-banner { margin: 5rem 6rem; border-radius: 1rem; background: linear-gradient(135deg, var(--cocoa) 0%, #6B3A1F 100%); padding: 5rem; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
+    .cta-banner::before { content: '🍰'; position: absolute; right: 12rem; top: 50%; transform: translateY(-50%); font-size: 8rem; opacity: 0.08; }
+    .cta-banner h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--cream); line-height: 1.2; max-width: 30ch; }
+    .cta-banner h2 em { font-style: italic; color: var(--gold); }
+    .btn-light { background: var(--cream); color: var(--cocoa); padding: 1rem 2.5rem; border-radius: 0.25rem; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; font-weight: 500; white-space: nowrap; transition: background 0.25s; display: inline-block; }
+    .btn-light:hover { background: var(--caramel); color: #fff; }
+
+    footer { background: var(--dark); color: rgba(250,246,240,0.7); padding: 4rem 6rem 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 1rem; }
+    .footer-brand-name span { color: var(--caramel); font-style: italic; }
+    .footer-about { font-size: 0.85rem; line-height: 1.7; font-weight: 300; margin-bottom: 1.5rem; }
+    .footer-col-title { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--caramel); font-weight: 500; margin-bottom: 1.2rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { font-size: 0.85rem; color: rgba(250,246,240,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--caramel); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.8rem; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 5rem 2rem 4rem; }
+      .features, .menu-section, .testimonials, .quote-sec { padding: 4rem 1.5rem; }
+      .features, .menu-grid, .testi-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .quote-sec { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: 1fr 1fr; padding: 3rem 2rem; }
+      .cta-banner { margin: 2rem 1.5rem; flex-direction: column; gap: 2rem; padding: 3rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 3rem 1.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Velvet <span>Spoon</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="order.html">Order</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="order.html" class="nav-cta">Order Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Artisan Confections Since 2012</div>
+      <h1 class="hero-title">Life is <em>Sweeter</em><br/>with Every<br/>Indulgent Bite</h1>
+      <p class="hero-desc">Handcrafted desserts made with the finest ingredients — from velvety chocolate ganaches to cloud-light soufflés. Every creation is a small act of love.</p>
+      <div class="hero-actions">
+        <a href="order.html" class="btn-primary">Explore Our Menu</a>
+        <a href="contact.html" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80" alt="Layered chocolate cake"/>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge-num">50+</span>
+        <span class="hero-badge-text">Creations</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="marquee-item">Chocolate Truffle Cake <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Crème Brûlée <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Macarons de Paris <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Tiramisu Classico <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Gulab Jamun Royale <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Mango Mousse <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Baklava Bites <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Chocolate Truffle Cake <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Crème Brûlée <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Macarons de Paris <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Tiramisu Classico <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Gulab Jamun Royale <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Mango Mousse <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Baklava Bites <span class="marquee-dot">✦</span></span>
+    </div>
+  </div>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🫙</div>
+      <h3 class="feature-title">Artisan Crafted</h3>
+      <p class="feature-desc">Every dessert is handmade in small batches using traditional techniques passed down through generations of pâtissiers.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌿</div>
+      <h3 class="feature-title">Natural Ingredients</h3>
+      <p class="feature-desc">We source only the finest organic ingredients — Belgian couverture chocolate, Madagascar vanilla, and locally grown fruits.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎁</div>
+      <h3 class="feature-title">Gift-Ready Packaging</h3>
+      <p class="feature-desc">Each order comes in our signature gold-ribbon boxes — perfect for birthdays, weddings, and corporate gifting occasions.</p>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div class="sec-head">
+      <div class="sec-tag">Our Signature</div>
+      <h2 class="sec-title">Most <em>Loved</em> Creations</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" alt="Chocolate Truffle Cake"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Bestseller</span>
+          <h3 class="menu-card-name">Dark Truffle Tower</h3>
+          <p class="menu-card-desc">72% dark Belgian chocolate, ganache layers, cocoa-dusted truffles stacked in artful elegance.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹1,299</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" alt="Macarons"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Fan Favourite</span>
+          <h3 class="menu-card-name">Parisian Macarons</h3>
+          <p class="menu-card-desc">Almond meringue shells with silky buttercream — rose, pistachio, caramel & lavender flavours.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹699</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80" alt="Tiramisu"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Classic</span>
+          <h3 class="menu-card-name">Classic Tiramisu</h3>
+          <p class="menu-card-desc">Savoiardi ladyfingers soaked in espresso, layered with mascarpone cloud and dusted cocoa.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹849</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80" alt="Crème Brûlée"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Chef's Pick</span>
+          <h3 class="menu-card-name">Crème Brûlée</h3>
+          <p class="menu-card-desc">Silky Madagascar vanilla custard beneath a perfectly torched caramelised sugar crust.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹549</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80" alt="Mango Mousse"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Seasonal</span>
+          <h3 class="menu-card-name">Alphonso Mango Mousse</h3>
+          <p class="menu-card-desc">Whipped seasonal Alphonso mango mousse with a light biscuit base and fresh mango coulis.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹499</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80" alt="Cocktail dessert"/>
+        <div class="menu-card-body">
+          <span class="menu-card-badge">Indian Classic</span>
+          <h3 class="menu-card-name">Gulab Jamun Royale</h3>
+          <p class="menu-card-desc">Soft khoya dumplings in rose-saffron syrup, elevated with pistachio dust and edible gold leaf.</p>
+          <div class="menu-card-footer"><span class="menu-price">₹399</span><a href="order.html" class="menu-order-btn">Order →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-sec">
+    <div class="quote-img-wrap">
+      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&q=80" alt="Baking in kitchen"/>
+    </div>
+    <div class="quote-content">
+      <div class="big-quote">"</div>
+      <p class="quote-text">Dessert is not a reward for eating your vegetables. It is a love letter to the senses.</p>
+      <p class="quote-author">— Chef Ananya Krishnan, Founder</p>
+      <br/><br/>
+      <p style="font-size:0.95rem;line-height:1.8;color:var(--muted);font-weight:300;">Since 2012, we've been crafting confections in our Hyderabad kitchen — blending classical French pâtisserie tradition with the bold flavours of India. Every creation tells a story; every bite is a memory.</p>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div><div class="stat-num">12+</div><div class="stat-label">Years of Craft</div></div>
+    <div><div class="stat-num">50+</div><div class="stat-label">Dessert Varieties</div></div>
+    <div><div class="stat-num">40K</div><div class="stat-label">Happy Customers</div></div>
+    <div><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+  </div>
+
+  <section class="testimonials">
+    <div class="sec-head">
+      <div class="sec-tag">Sweet Words</div>
+      <h2 class="sec-title">What Our <em>Guests</em> Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Dark Truffle Tower made our anniversary dinner utterly unforgettable. I've never tasted anything so decadent in Hyderabad."</p>
+        <p class="testi-author">— Priya Sharma, Banjara Hills</p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Ordered a custom macaron box for our daughter's birthday. The flavours, the packaging, the personal note — every detail was absolutely perfect."</p>
+        <p class="testi-author">— Rahul Menon, Jubilee Hills</p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As a corporate client, we regularly order for client events. Consistently exceptional quality and always delivered on time."</p>
+        <p class="testi-author">— Anita Rao, IT Executive</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2>Ready for something <em>extraordinary</em>? Order your indulgence today.</h2>
+    <a href="order.html" class="btn-light">Shop Desserts</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Velvet <span>Spoon</span></div>
+        <p class="footer-about">Artisan desserts handcrafted with love in Hyderabad. Celebrating every occasion with exceptional confections since 2012.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="order.html">Order</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Menu</div>
+        <ul class="footer-links">
+          <li><a href="order.html">Cakes & Tortes</a></li>
+          <li><a href="order.html">Petit Fours</a></li>
+          <li><a href="order.html">Indian Sweets</a></li>
+          <li><a href="order.html">Seasonal</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="tel:+914023456789">+91 40 2345 6789</a></li>
+          <li><a href="mailto:hello@velvetspoon.in">hello@velvetspoon.in</a></li>
+          <li><a href="#">Jubilee Hills, Hyderabad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Velvet Spoon. All rights reserved.</span>
+      <span style="font-size:0.8rem;">Made with 🍫 in Hyderabad</span>
+    </div>
+  </footer>
+</body>
+</html>
